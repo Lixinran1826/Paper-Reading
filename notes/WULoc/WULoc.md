@@ -73,7 +73,7 @@ Wi-Fi定位中使用Wi-Fi设别作为anchors，使用**飞行时间（ToF）和�
 
 ## System Overview
 
-![image-20250328104023402](/Users/aukira/Paper-Reading/notes/WULoc/overview.png)
+![system overview](https://github.com/Lixinran1826/Paper-Reading/blob/main/notes/WULoc/overview.png?raw=true)
 
 step 1: 首先是通过 Wi-Fi-UWB 连接建立向 UWB anchor 传输一个专门定制的 Wi-Fi 数据包，该数据包可模拟 UWB 数据包。
 
@@ -101,15 +101,15 @@ Wi-Fi 的 **循环前缀（Cyclic Prefix, CP）** 的持续时间为 3.2 μs，�
 
    IEEE 802.11ax 标准规定的 **Wi-Fi 符号的保护间隔（GI）**选项为0.8μs、1.6μs和3.2μs，UWB 符号持续时间 ≈ 1μs，因此Wi-Fi 的 GI 不总是 UWB 符号的整数倍，这样会导致 CP 的分割出现误差而引入误差。GI 无法避免，但可以选择合适的值来降低误差：选择 **GI =  3.2μs**，因为3.2 μs 的 GI 只会影响一个 UWB 符号的 20%。
 
-   ![image-20250329152229872](/Users/aukira/Paper-Reading/notes/WULoc/Different duration of GI.png)
+   ![Different duration of GI](https://github.com/Lixinran1826/Paper-Reading/blob/main/notes/WULoc/Different%20duration%20of%20GI.png?raw=true)
 
    Wi-Fi 的 **CP 会复制符号最后 3.2 μs 的部分到符号开头**，形成一个前导段。由于 **UWB 符号是 1 μs 长**，3.2 μs CP 对应 **3 个完整的 UWB 符号 + 额外的 0.2 μs 误差部分**，这 **0.2 μs** 的 CP 误差部分会破坏 UWB 符号的连续性。每个 UWB 符号（1 μs）包含 **32 个code bits**，0.2μs 对应**7个bits**，相当于 **Wi-Fi CP 覆盖了 7 个 UWB bits**。如果 **Wi-Fi CP 复制的最后 7 个 UWB 码比特与 UWB 符号开头的 7 个码比特相似**，则信号的**不连续性最小**，从而 **减少误差**。**选择 UWB 前导码 Code 4**，确保 **Wi-Fi CP 复制部分与 UWB 开头部分最相似。**
 
    图 6 比较了 Wi-Fi 模拟的 UWB 信号和真实的 UWB 信号，可以看出由于 CP，0.2 μs之前的部分完全不同。不过这部分只占信号的一小部分，而且不是每个 UWB 符号都会出现，因此可以减少由此产生的误差。另一方面，由于带宽的限制，仿真前导码更加平滑。通过我们的实验，商用 UWB 设备能够成功地检测和解调由 Wi-Fi 仿真的 UWB 信号。
 
-![image-20250329162825069](/Users/aukira/Paper-Reading/notes/WULoc/Illustration of UWB signal and emulate signal.png)
+![Illustration of UWB signal and emulate signal](https://github.com/Lixinran1826/Paper-Reading/blob/main/notes/WULoc/Illustration%20of%20UWB%20signal%20and%20emulate%20signal.png?raw=true)
 
-<img src="/Users/aukira/Paper-Reading/notes/WULoc/UWB code index.png" alt="image-20250329162931807" style="zoom:50%;" />
+<img src="https://github.com/Lixinran1826/Paper-Reading/blob/main/notes/WULoc/UWB%20code%20index.png?raw=true" alt="UWB code index" style="zoom:50%;" />
 
 #### 挑战2: 带宽差距
 
